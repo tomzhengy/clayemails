@@ -8,7 +8,7 @@ from typing import Dict, List, Optional, Tuple
 
 # Clado API configuration
 API_BASE_URL = "https://search.clado.ai/api/enrich/contacts"
-API_KEY = "lk_22072da349d44317aa1b60cf6bddee86"
+API_KEY = "lk_9c1512d5d7214191aab1ad1e5d7d96e9"
 
 # Concurrency settings
 MAX_CONCURRENT_REQUESTS = 10  # Reduced from 10 to avoid rate limits
@@ -227,8 +227,11 @@ async def enrich_csv_file_async(input_file: str, output_file: Optional[str] = No
             linkedin_column = 'LinkedIn Profile'
         elif 'linkedin_url' in df.columns:
             linkedin_column = 'linkedin_url'
+        elif 'LinkedIn' in df.columns:
+            linkedin_column = 'LinkedIn'
         else:
-            print("Error: Neither 'LinkedIn Profile' nor 'linkedin_url' column found in CSV")
+            print("Error: Neither 'LinkedIn Profile' nor 'linkedin_url' nor 'LinkedIn' column found in CSV")
+            print(f"Available columns: {list(df.columns)}")
             return None
         
         print(f"Using LinkedIn column: {linkedin_column}")
